@@ -10,7 +10,6 @@ class Results extends Component {
     super(props)
     const name = localStorage.getItem('name')
     const gender = localStorage.getItem('gender')
-    console.log({name})
     this.state = {
       name: name,
       gender: gender,
@@ -20,6 +19,24 @@ class Results extends Component {
       showBriggsResult: false
     }
     this._onNextClick = this._onNextClick.bind(this)
+  }
+
+  renderTestResults(maleCount, femaleCount, name, gender) {
+    if (maleCount > femaleCount) {
+      if (gender === 'Male') {
+        return <div>GAY</div>
+      } else {
+        return <div>loves men (straight)</div>
+      }
+    } else if (maleCount < femaleCount) {
+      if (gender === 'Female') {
+        return <div>Lesbian</div>
+      } else {
+        return <div>loves women (straight)</div>
+      }
+    } else {
+      return <div>Neutral</div>
+    }
   }
 
   renderResultColors() {
@@ -35,20 +52,20 @@ class Results extends Component {
   }
 
   render() {
-    
+
 
     return (
-      <Wrapper className="container">
+      <Wrapper className="container output">
         <QuestionCard>
           <div className="corner" />
           <div className="corner" />
           <div className="corner" />
           <div className="corner" />
-          maleCount: {this.props.maleCount}<br/>
-          femaleCount: {this.props.femaleCount}<br/>
 
-          name: {this.state.name}<br/>
-          gender: {this.state.gender}<br/>
+          <div className='output' >
+            {this.state.name} is <br />
+            {this.renderTestResults(this.props.maleCount, this.props.femaleCount, this.state.name, this.state.gender)}
+          </div>
         </QuestionCard>
       </Wrapper>
     )

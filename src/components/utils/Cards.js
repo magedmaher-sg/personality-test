@@ -47,7 +47,7 @@ export const IntroCard = styled.div.attrs({
     }
   }
 `
-
+ 
 export const QuestionCard = styled.div.attrs({
   className: 'card'
 })`
@@ -87,6 +87,11 @@ export const QuestionCard = styled.div.attrs({
       right: 5%;
       transform: rotateZ(90deg);
     }
+  }
+  .output{
+    display: flex;
+    justify-content: center;
+    padding: 50px;
   }
 `
 

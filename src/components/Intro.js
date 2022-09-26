@@ -48,7 +48,7 @@ const Intro = ({ title, _onStartClick }) => {
         <h1>{title}</h1>
         {/* TODO: WILL CHANGE THIS THING DOWN HERE */}
         <ul className="list-group">
-          <li className="list-group-item">Consists of 6 questions</li>
+          <li className="list-group-item">Consists of 10 questions</li>
           <label className='list-group-item' style={{ marginRight: 15 }}>Enter your name:
             <input type="text" onChange={e => setUserName(e.target.value)} />
           </label>

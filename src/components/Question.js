@@ -23,7 +23,7 @@ class Question extends Component {
     this.state = {
       maleCount: 0,
       femaleCount: 0,
-      showResult: true,
+      showResult: false,
       
 
       counter: 0,
@@ -198,7 +198,6 @@ class Question extends Component {
   //                        set results
   // ===========================================================================
   setResults() {
-    console.log('show result')
     this.setState({
       showResult: true,
     })
