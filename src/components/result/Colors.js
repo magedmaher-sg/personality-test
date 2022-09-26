@@ -98,7 +98,7 @@ class Colors extends Component {
     }
     return (
       <Wrapper className="jumbotron">
-        <h1 className="display-3 title">Colors Result</h1>
+        <h1 className="display-3 title">Test Result</h1>
         <hr className="my-4" />
         <h2 className="display-6 resultTxt">{this.props.resultColors}</h2>
         <hr className="my-5" />

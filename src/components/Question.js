@@ -59,6 +59,7 @@ class Question extends Component {
   // populate app’s state using the componentWillMount life cycle event
   componentWillMount() {
     const answerOptions = quizQuestions.map(question => question.answers)
+    console.log("elloooo",quizQuestions, answerOptions)
     this.setState({
       question: quizQuestions[0].question,
       answerOptions: answerOptions[0]

@@ -48,7 +48,7 @@ const Intro = ({ title, _onStartClick }) => {
         <h1>{title}</h1>
         {/* TODO: WILL CHANGE THIS THING DOWN HERE */}
         <ul className="list-group">
-          <li className="list-group-item">Consits of 40 questions</li>
+          <li className="list-group-item">Consists of 6 questions</li>
           <label className='list-group-item' style={{ marginRight: 15 }}>Enter your name:
             <input type="text" onChange={e => setUserName(e.target.value)} />
           </label>
@@ -57,12 +57,14 @@ const Intro = ({ title, _onStartClick }) => {
             <input type="radio" value="Female" name="gender" style={{ marginLeft: 10 }} /> Female
           </div>
         </ul>
-        <StartBtn onClick={()=> {_onStartClick(), localStorage.setItem("name", userName), localStorage.setItem("gender", userGender)}}>
-          <span>Let's Do This!</span>
-          <div className="icon">
-            <i className="fa fa-arrow-right" />
-          </div>
-        </StartBtn>
+        {userGender && userName &&
+          <StartBtn onClick={() => { _onStartClick(), localStorage.setItem("name", userName), localStorage.setItem("gender", userGender) }}>
+            <span>Let's Do This!</span>
+            <div className="icon">
+              <i className="fa fa-arrow-right" />
+            </div>
+          </StartBtn>
+        }
       </IntroCard>
     </Wrapper>
   )
