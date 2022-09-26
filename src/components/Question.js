@@ -120,7 +120,7 @@ class Question extends Component {
 
   getRandomOptions() {
     let options = [
-      this.shuffleArray(stllrs.male).slice(0, 1),
+      this.shuffleArray(stllrs.male).slice(0, 2),
       this.shuffleArray(stllrs.female).slice(0, 2),
     ].flat()
     options = this.shuffleArray(options).slice(0, 3)
