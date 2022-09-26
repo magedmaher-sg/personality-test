@@ -56,15 +56,15 @@ const AnswerOption = props => {
     <Wrapper>
       <li>
         <input
-          checked={props.answerType === props.answer}
-          id={props.answerType}
+          // checked={props.answerType === props.answer}
+          id={props.answerContent}
           value={props.answerType}
-          name={props.answerType}
+          name={props.answerContent}
           disabled={props.answer}
           onChange={props.onAnswerSelected}
           type="radio"
         />
-        <label className="radioCustomLabel" htmlFor={props.answerType}>
+        <label className="radioCustomLabel" htmlFor={props.answerContent}>
           {props.answerContent}
         </label>
       </li>

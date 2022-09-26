@@ -4,6 +4,7 @@ import { colors } from '../components/utils/_var'
 import Quiz from '../components/quiz/Quiz'
 import Results from '../components/result/Results'
 import quizQuestions from '../api/quizQuestions'
+import stllrs from '../api/stllrs'
 import { QuestionCard } from '../components/utils/Cards'
 
 const Wrapper = styled.div`
@@ -20,6 +21,10 @@ class Question extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      maleCount: 0,
+      femaleCount: 0,
+      
+
       counter: 0,
       questionId: 1,
       question: '',
@@ -58,48 +63,80 @@ class Question extends Component {
 
   // populate app’s state using the componentWillMount life cycle event
   componentWillMount() {
-    const answerOptions = quizQuestions.map(question => question.answers)
-    console.log("elloooo",quizQuestions, answerOptions)
+    const answerOptions = this.getRandomOptions()
     this.setState({
       question: quizQuestions[0].question,
-      answerOptions: answerOptions[0]
+      answerOptions: answerOptions
     })
   }
 
   // setting the answer based on the user’s selection
   setUserAnswer(answer) {
-    const answersCount = this.state.answersCount
-    let applyAnswer = answer => {
-      const answer_array = answer.split(',')
-      let briggsAnswer = answer_array[0]
-      let colorsAnswer = answer_array[1]
-      let lettersAnswer = answer_array[2]
-      if (answer_array.length === 3) {
-        answersCount['Briggs'][briggsAnswer] += 1
-        answersCount['Colors'][colorsAnswer] += 1
-        answersCount['Letters'][lettersAnswer] += 1
-      } else if (answer_array.length === 4) {
-        answersCount['Briggs'][briggsAnswer] -= 1
-        answersCount['Colors'][colorsAnswer] -= 1
-        answersCount['Letters'][lettersAnswer] -= 1
-      }
-      return answersCount
+    console.log({answer})
+    switch(answer) {
+      case 'm':
+        this.setState({
+          maleCount: this.state.maleCount + 1,
+          answer: 'm',
+        })
+        break;
+
+      case 'f':
+        this.setState({
+          femaleCount: this.state.femaleCount + 1,
+          answer: 'f',
+        })
+        break;
     }
-    this.setState({
-      answersCount: applyAnswer(answer),
-      answer: answer
-    })
+    // const answersCount = this.state.answersCount
+    // let applyAnswer = answer => {
+    //   const answer_array = answer.split(',')
+    //   let briggsAnswer = answer_array[0]
+    //   let colorsAnswer = answer_array[1]
+    //   let lettersAnswer = answer_array[2]
+    //   if (answer_array.length === 3) {
+    //     answersCount['Briggs'][briggsAnswer] += 1
+    //     answersCount['Colors'][colorsAnswer] += 1
+    //     answersCount['Letters'][lettersAnswer] += 1
+    //   } else if (answer_array.length === 4) {
+    //     answersCount['Briggs'][briggsAnswer] -= 1
+    //     answersCount['Colors'][colorsAnswer] -= 1
+    //     answersCount['Letters'][lettersAnswer] -= 1
+    //   }
+    //   return answersCount
+    // }
+    // this.setState({
+    //   answersCount: applyAnswer(answer),
+    //   answer: answer
+    // })
+  }
+
+  shuffleArray(array) {
+    return array.map(value => ({ value, sort: Math.random() }))
+    .sort((a, b) => a.sort - b.sort)
+    .map(({ value }) => value)
+  }
+
+  getRandomOptions() {
+    let options = [
+      this.shuffleArray(stllrs.male).slice(0, 1),
+      this.shuffleArray(stllrs.female).slice(0, 2),
+    ].flat()
+    options = this.shuffleArray(options).slice(0, 3)
+    options = options.map(e => ({ content: e.name, type: e.gender }))
+    return options
   }
 
   // increment the counter and questionId state
   setNextQuestion() {
     const counter = this.state.counter + 1
     const questionId = this.state.questionId + 1
+    const options = this.getRandomOptions()
     this.setState({
       counter: counter,
       questionId: questionId,
       question: quizQuestions[counter].question,
-      answerOptions: quizQuestions[counter].answers,
+      answerOptions: options,
       answer: ''
     })
   }
@@ -110,7 +147,7 @@ class Question extends Component {
     if (this.state.questionId < quizQuestions.length) {
       setTimeout(() => this.setNextQuestion(), 800)
     } else {
-      setTimeout(() => this.setResults(this.getColorsResults(), this.getLettersResults(), this.getBriggsResults()), 800)
+      setTimeout(() => this.setResults(), 800)
     }
   }
 
@@ -159,16 +196,19 @@ class Question extends Component {
   // ===========================================================================
   //                        set results
   // ===========================================================================
-  setResults(resultColors, resultLetters, resultBriggs) {
-    if (resultColors.length >= 1) {
-      this.setState({ resultColors: resultColors[0] })
-    }
-    if (resultLetters.length >= 1) {
-      this.setState({ resultLetters: resultLetters[0] })
-    }
-    if (resultBriggs.length >= 1) {
-      this.setState({ resultBriggs: resultBriggs })
-    }
+  setResults() {
+    const { maleCount, femaleCount } = this.state
+    const gender = localStorage.getItem('gender')
+    console.log({ maleCount, femaleCount, gender })
+    // if (resultColors.length >= 1) {
+    //   this.setState({ resultColors: resultColors[0] })
+    // }
+    // if (resultLetters.length >= 1) {
+    //   this.setState({ resultLetters: resultLetters[0] })
+    // }
+    // if (resultBriggs.length >= 1) {
+    //   this.setState({ resultBriggs: resultBriggs })
+    // }
   }
 
   // ===========================================================================
