@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { StartBtn } from '../components/utils/Buttons'
 import { IntroCard } from '../components/utils/Cards'
@@ -36,6 +36,8 @@ const Wrapper = styled.div`
 `
 
 const Intro = ({ title, _onStartClick }) => {
+  const [userName, setUserName] = useState()
+  const [userGender, setUserGender] = useState()
   return (
     <Wrapper className="container">
       <IntroCard>
@@ -47,9 +49,15 @@ const Intro = ({ title, _onStartClick }) => {
         {/* TODO: WILL CHANGE THIS THING DOWN HERE */}
         <ul className="list-group">
           <li className="list-group-item">Consits of 40 questions</li>
-          <li className="list-group-item">Answer honestly</li>
+          <label className='list-group-item' style={{ marginRight: 15 }}>Enter your name:
+            <input type="text" onChange={e => setUserName(e.target.value)} />
+          </label>
+          <div className='list-group-item' onChange={e => setUserGender(e.target.value)}>
+            <input type="radio" value="Male" name="gender" /> Male
+            <input type="radio" value="Female" name="gender" style={{ marginLeft: 10 }} /> Female
+          </div>
         </ul>
-        <StartBtn onClick={_onStartClick}>
+        <StartBtn onClick={()=> {_onStartClick(), localStorage.setItem("name", userName), localStorage.setItem("gender", userGender)}}>
           <span>Let's Do This!</span>
           <div className="icon">
             <i className="fa fa-arrow-right" />
