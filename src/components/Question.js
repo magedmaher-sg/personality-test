@@ -23,6 +23,7 @@ class Question extends Component {
     this.state = {
       maleCount: 0,
       femaleCount: 0,
+      showResult: true,
       
 
       counter: 0,
@@ -197,9 +198,10 @@ class Question extends Component {
   //                        set results
   // ===========================================================================
   setResults() {
-    const { maleCount, femaleCount } = this.state
-    const gender = localStorage.getItem('gender')
-    console.log({ maleCount, femaleCount, gender })
+    console.log('show result')
+    this.setState({
+      showResult: true,
+    })
     // if (resultColors.length >= 1) {
     //   this.setState({ resultColors: resultColors[0] })
     // }
@@ -233,9 +235,8 @@ class Question extends Component {
   renderResult() {
     return (
       <Results
-        resultColors={this.state.resultColors}
-        resultLetters={this.state.resultLetters}
-        resultBriggs={this.state.resultBriggs}
+        maleCount={this.state.maleCount}
+        femaleCount={this.state.femaleCount}
       />
     )
   }
@@ -244,8 +245,8 @@ class Question extends Component {
   //                       render this question page
   // ===========================================================================
   render() {
-    let resultBriggs = this.state.resultBriggs
-    if (resultBriggs) {
+    let showResult = this.state.showResult
+    if (showResult) {
       return this.renderResult()
     }
     return (

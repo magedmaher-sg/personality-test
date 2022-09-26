@@ -2,11 +2,19 @@ import React, { Component } from 'react'
 import Colors from '../result/Colors'
 import Letters from '../result/Letters'
 import Briggs from '../result/Briggs'
+import { Wrapper } from '../utils/ResultWrapper'
+import { QuestionCard } from '../utils/Cards'
 
 class Results extends Component {
   constructor(props) {
     super(props)
+    const name = localStorage.getItem('name')
+    const gender = localStorage.getItem('gender')
+    console.log({name})
     this.state = {
+      name: name,
+      gender: gender,
+
       showColorsResult: true,
       showLettersResult: false,
       showBriggsResult: false
@@ -27,6 +35,23 @@ class Results extends Component {
   }
 
   render() {
+    
+
+    return (
+      <Wrapper className="container">
+        <QuestionCard>
+          <div className="corner" />
+          <div className="corner" />
+          <div className="corner" />
+          <div className="corner" />
+          maleCount: {this.props.maleCount}<br/>
+          femaleCount: {this.props.femaleCount}<br/>
+
+          name: {this.state.name}<br/>
+          gender: {this.state.gender}<br/>
+        </QuestionCard>
+      </Wrapper>
+    )
     let showColorsResult = this.state.showColorsResult
     let showLettersResult = this.state.showLettersResult
     let showBriggsResult = this.state.showBriggsResult
