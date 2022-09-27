@@ -119,9 +119,10 @@ class Question extends Component {
   }
 
   getRandomOptions() {
+    const f = e => e.id !== Number(localStorage.getItem('id'))
     let options = [
-      this.shuffleArray(stllrs.male).slice(0, 1),
-      this.shuffleArray(stllrs.female).slice(0, 2),
+      this.shuffleArray(stllrs.male.filter(f)).slice(0, 2),
+      this.shuffleArray(stllrs.female.filter(f)).slice(0, 2),
     ].flat()
     options = this.shuffleArray(options).slice(0, 3)
     options = options.map(e => ({ content: e.name, type: e.gender }))

@@ -44,8 +44,25 @@ const options = [
 ]
 
 const Intro = ({ title, _onStartClick }) => {
+  const [userId, setUserId] = useState()
   const [userName, setUserName] = useState()
   const [userGender, setUserGender] = useState()
+  const [options] = useState(() => {
+    return [stllrs.male, stllrs.female]
+      .flat()
+      .sort((a, b) => a.name.localeCompare(b.name))
+      .map(e => ({ label: e.name, value: e.id }))
+  })
+
+  const handleOnSubmit = () => {
+    _onStartClick()
+    localStorage.setItem("id", userId)
+    localStorage.setItem("name", userName)
+
+    const user = [stllrs.male, stllrs.female].flat().find(e => e.id === Number(userId))
+    localStorage.setItem("gender", user.gender)
+  }
+
   return (
     <Wrapper className="container">
       <IntroCard>
@@ -61,15 +78,19 @@ const Intro = ({ title, _onStartClick }) => {
             <input type="text" onChange={e => setUserName(e.target.value)} />
           </label> */}
           <div className='list-group-item' style={{ display: 'flex', justifyContent: 'center' }}>
-            <Dropdown options={options} onChange={e => setUserName(e.value)} placeholder="Who are you?" />
+            <Dropdown options={options} onChange={e => {
+              console.log(e)
+              setUserId(e.value)
+              setUserName(e.label)
+            }} placeholder="Who are you?" />
           </div>
-          <div className='list-group-item' onChange={e => setUserGender(e.target.value)}>
+          {/* <div className='list-group-item' onChange={e => setUserGender(e.target.value)}>
             <input type="radio" value="Male" name="gender" /> Male
             <input type="radio" value="Female" name="gender" style={{ marginLeft: 10 }} /> Female
-          </div>
+          </div> */}
         </ul>
-        {userGender && userName &&
-          <StartBtn onClick={() => { _onStartClick(), localStorage.setItem("name", userName), localStorage.setItem("gender", userGender) }}>
+        {userName &&
+          <StartBtn onClick={handleOnSubmit}>
             <span>Let's Do This!</span>
             <div className="icon">
               <i className="fa fa-arrow-right" />
