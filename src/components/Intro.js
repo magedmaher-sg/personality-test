@@ -4,6 +4,9 @@ import { StartBtn } from '../components/utils/Buttons'
 import { IntroCard } from '../components/utils/Cards'
 import { fonts, colors } from '../components/utils/_var'
 import { media } from '../components/utils/_media-queries'
+import Dropdown from 'react-dropdown';
+import 'react-dropdown/style.css';
+import stllrs from '../api/stllrs'
 
 const Wrapper = styled.div`
   position: fixed;
@@ -35,6 +38,11 @@ const Wrapper = styled.div`
   }
 `
 
+const options = [
+  { value: 'one', label: 'One' },
+  { value: 'two', label: 'Two' }
+]
+
 const Intro = ({ title, _onStartClick }) => {
   const [userName, setUserName] = useState()
   const [userGender, setUserGender] = useState()
@@ -49,9 +57,12 @@ const Intro = ({ title, _onStartClick }) => {
         {/* TODO: WILL CHANGE THIS THING DOWN HERE */}
         <ul className="list-group">
           <li className="list-group-item">Consists of 10 questions</li>
-          <label className='list-group-item' style={{ marginRight: 15 }}>Enter your name:
+          {/* <label className='list-group-item' style={{ marginRight: 15 }}>Enter your name:
             <input type="text" onChange={e => setUserName(e.target.value)} />
-          </label>
+          </label> */}
+          <div className='list-group-item' style={{ display: 'flex', justifyContent: 'center' }}>
+            <Dropdown options={options} onChange={e => setUserName(e.value)} placeholder="Who are you?" />
+          </div>
           <div className='list-group-item' onChange={e => setUserGender(e.target.value)}>
             <input type="radio" value="Male" name="gender" /> Male
             <input type="radio" value="Female" name="gender" style={{ marginLeft: 10 }} /> Female
