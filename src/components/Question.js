@@ -6,6 +6,7 @@ import Results from '../components/result/Results'
 import quizQuestions from '../api/quizQuestions'
 import stllrs from '../api/stllrs'
 import { QuestionCard } from '../components/utils/Cards'
+import Submit from './quiz/Submit'
 
 const Wrapper = styled.div`
   position: fixed;
@@ -24,6 +25,7 @@ class Question extends Component {
       maleCount: 0,
       femaleCount: 0,
       showResult: false,
+      quizEnded: false,
       
 
       counter: 0,
@@ -149,8 +151,16 @@ class Question extends Component {
     if (this.state.questionId < quizQuestions.length) {
       setTimeout(() => this.setNextQuestion(), 800)
     } else {
-      setTimeout(() => this.setResults(), 800)
+      console.log('quiz ended')
+      console.log(this.endQuiz)
+      setTimeout(() => this.endQuiz(), 800)
     }
+  }
+
+  handleShowResult() {
+    console.log('show results')
+    console.log(this.showResult)
+    setTimeout(() => this.showResult(), 200)
   }
 
   // ===========================================================================
@@ -198,19 +208,18 @@ class Question extends Component {
   // ===========================================================================
   //                        set results
   // ===========================================================================
-  setResults() {
+  endQuiz() {
+    console.log('set quiz ended')
+    this.setState({
+      quizEnded: true,
+    })
+  }
+
+  showResult() {
+    console.log('set show results')
     this.setState({
       showResult: true,
     })
-    // if (resultColors.length >= 1) {
-    //   this.setState({ resultColors: resultColors[0] })
-    // }
-    // if (resultLetters.length >= 1) {
-    //   this.setState({ resultLetters: resultLetters[0] })
-    // }
-    // if (resultBriggs.length >= 1) {
-    //   this.setState({ resultBriggs: resultBriggs })
-    // }
   }
 
   // ===========================================================================
@@ -242,12 +251,23 @@ class Question extends Component {
   }
 
   // ===========================================================================
+  //                    functions to render submit
+  // ===========================================================================
+  renderSubmit() {
+    return (
+      <Submit onSubmit={this.handleShowResult.bind(this)} />
+    )
+  }
+
+  // ===========================================================================
   //                       render this question page
   // ===========================================================================
   render() {
-    let showResult = this.state.showResult
-    if (showResult) {
+    if (this.state.showResult) {
       return this.renderResult()
+    }
+    else if (this.state.quizEnded) {
+      return this.renderSubmit()
     }
     return (
       <Wrapper className="container">
