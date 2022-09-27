@@ -64,7 +64,7 @@ const Submit = ({ title, onSubmit }) => {
         <ul className="list-group">
           <li className="list-group-item">Quiz Ended</li>
           <label className='list-group-item' style={{ marginRight: 15 }}>Enter password:
-            <input type="text" onChange={e => setPassword(e.target.value)} />
+            <input type="password" onChange={e => setPassword(e.target.value)} />
           </label>
         </ul>
         <div className='list-group'>

@@ -23,13 +23,13 @@ class Results extends Component {
 
   renderTestResults(maleCount, femaleCount, name, gender) {
     if (maleCount > femaleCount) {
-      if (gender === 'Male') {
+      if (gender === 'm') {
         return <div>GAY</div>
       } else {
         return <div>loves men (straight)</div>
       }
     } else if (maleCount < femaleCount) {
-      if (gender === 'Female') {
+      if (gender === 'f') {
         return <div>Lesbian</div>
       } else {
         return <div>loves women (straight)</div>
